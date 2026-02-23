@@ -22,5 +22,6 @@ public class TestController {
     @GetMapping("/check-key")
     public String checkKey() {
         return weatherService.testKey();
+
     }
 }
