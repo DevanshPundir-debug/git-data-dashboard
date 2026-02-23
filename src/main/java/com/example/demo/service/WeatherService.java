@@ -13,4 +13,15 @@ public class WeatherService {
     public String testKey() {
         return apiKey;
     }
+
+    public String getWeather() {
+
+        String url = "https://api.openweathermap.org/data/2.5/weather?q=Delhi&appid=" + apiKey;
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        String response = restTemplate.getForObject(url, String.class);
+
+        return response;
+    }
 }

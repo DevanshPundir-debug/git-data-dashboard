@@ -24,4 +24,8 @@ public class TestController {
         return weatherService.testKey();
 
     }
+    @GetMapping("/weather")
+    public String getWeather() {
+        return weatherService.getWeather();
+    }
 }
