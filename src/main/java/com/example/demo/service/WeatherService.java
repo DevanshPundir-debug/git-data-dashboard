@@ -1,8 +1,11 @@
 package com.example.demo.service;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
 
 @Service
 public class WeatherService {
@@ -15,13 +18,24 @@ public class WeatherService {
     }
 
     public String getWeather() {
+        try {
+            String url = "https://api.openweathermap.org/data/2.5/weather?q=Delhi&appid=" + apiKey + "&units=metric";
 
-        String url = "https://api.openweathermap.org/data/2.5/weather?q=Delhi&appid=" + apiKey;
+            RestTemplate restTemplate = new RestTemplate();
+            String response = restTemplate.getForObject(url, String.class);
 
-        RestTemplate restTemplate = new RestTemplate();
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode root = mapper.readTree(response);
 
-        String response = restTemplate.getForObject(url, String.class);
+            String city = root.get("name").asText();
+            double temp = root.get("main").get("temp").asDouble();
+            String condition = root.get("weather").get(0).get("main").asText();
 
-        return response;
+            return "City: " + city + "\nTemp: " + temp + "°C\nCondition: " + condition;
+
+        } catch (Exception e) {
+            return e.getMessage();
+        }
     }
+
 }
