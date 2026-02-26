@@ -19,7 +19,11 @@ public class WeatherService {
 
     public String getWeather(String city) {
         try {
-            String url = "https://api.openweathermap.org/data/2.5/weather?q=Delhi&appid=" + apiKey + "&units=metric";
+//            String url = "https://api.openweathermap.org/data/2.5/weather?q=Delhi&appid=" + apiKey + "&units=metric";
+            String url = "https://api.openweathermap.org/data/2.5/weather?q="
+                    + city +
+                    "&appid=" + apiKey +
+                    "&units=metric";
 
             RestTemplate restTemplate = new RestTemplate();
             String response = restTemplate.getForObject(url, String.class);

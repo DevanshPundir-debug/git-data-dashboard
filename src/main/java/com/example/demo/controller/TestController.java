@@ -25,10 +25,10 @@ public class TestController {
         return weatherService.testKey();
 
     }
-    @GetMapping("/weather")
-    public String getWeather() {
-        return weatherService.getWeather();
-    }
+//    @GetMapping("/weather")
+//    public String getWeather() {
+//        return weatherService.getWeather();
+//    }
     @GetMapping("/weather")
     public String weather(@RequestParam String city) {
         return weatherService.getWeather(city);
