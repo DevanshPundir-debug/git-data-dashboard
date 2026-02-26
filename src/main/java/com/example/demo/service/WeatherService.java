@@ -17,7 +17,7 @@ public class WeatherService {
         return apiKey;
     }
 
-    public String getWeather() {
+    public String getWeather(String city) {
         try {
             String url = "https://api.openweathermap.org/data/2.5/weather?q=Delhi&appid=" + apiKey + "&units=metric";
 
@@ -27,11 +27,11 @@ public class WeatherService {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(response);
 
-            String city = root.get("name").asText();
+            String cityName = root.get("name").asText();
             double temp = root.get("main").get("temp").asDouble();
             String condition = root.get("weather").get(0).get("main").asText();
 
-            return "City: " + city + "\nTemp: " + temp + "°C\nCondition: " + condition;
+            return "City: " + cityName + "\nTemp: " + temp + "°C\nCondition: " + condition;
 
         } catch (Exception e) {
             return e.getMessage();
