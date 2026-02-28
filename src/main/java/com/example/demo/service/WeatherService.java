@@ -5,7 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
+import java.util.Map;
+import java.util.HashMap;
 
 @Service
 public class WeatherService {
@@ -17,7 +18,8 @@ public class WeatherService {
         return apiKey;
     }
 
-    public String getWeather(String city) {
+    public Map<String, Object> getWeather(String city)  {
+
         try {
 //            String url = "https://api.openweathermap.org/data/2.5/weather?q=Delhi&appid=" + apiKey + "&units=metric";
             String url = "https://api.openweathermap.org/data/2.5/weather?q="
@@ -35,10 +37,19 @@ public class WeatherService {
             double temp = root.get("main").get("temp").asDouble();
             String condition = root.get("weather").get(0).get("main").asText();
 
-            return "City: " + cityName + "\nTemp: " + temp + "°C\nCondition: " + condition;
+            Map<String, Object> data = new HashMap<>();
+            data.put("city", cityName);
+            data.put("temp", temp);
+            data.put("condition", condition);
+
+            return data;
+
+//            return "City: " + cityName + "\nTemp: " + temp + "°C\nCondition: " + condition;
 
         } catch (Exception e) {
-            return e.getMessage();
+            Map<String, Object> error = new HashMap<>();
+            error.put("error", e.getMessage());
+            return error;
         }
     }
 //form
