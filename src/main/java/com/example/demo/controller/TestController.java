@@ -1,6 +1,7 @@
 //package controller;
 package com.example.demo.controller;
 
+import java.util.Map;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.service.WeatherService;
@@ -30,7 +31,7 @@ public class TestController {
 //        return weatherService.getWeather();
 //    }
     @GetMapping("/weather")
-    public String weather(@RequestParam String city) {
+    public Map<String, Object> weather(@RequestParam String city) {
         return weatherService.getWeather(city);
     }
 }
