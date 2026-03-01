@@ -32,6 +32,11 @@ public class WeatherService {
 
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(response);
+            if (root.get("cod").asInt() != 200) {
+                Map<String, Object> error = new HashMap<>();
+                error.put("error", "City not found");
+                return error;
+            }
 
             String cityName = root.get("name").asText();
             double temp = root.get("main").get("temp").asDouble();
@@ -45,12 +50,11 @@ public class WeatherService {
             return data;
 
 //            return "City: " + cityName + "\nTemp: " + temp + "°C\nCondition: " + condition;
-
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             Map<String, Object> error = new HashMap<>();
             error.put("error", e.getMessage());
             return error;
         }
     }
-//form
 }
