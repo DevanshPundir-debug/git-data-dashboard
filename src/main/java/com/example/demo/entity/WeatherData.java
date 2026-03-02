@@ -11,7 +11,7 @@ public class WeatherData {
 
     private String city;
     private double temp;
-    private String condition;
+    private String weatherCondition;
 
     public Long getId() {
         return id;
@@ -34,11 +34,11 @@ public class WeatherData {
     }
 
     public String getCondition() {
-        return condition;
+        return weatherCondition;
     }
 
     public void setCondition(String condition) {
-        this.condition = condition;
+        this.weatherCondition = condition;
     }
 
 }
