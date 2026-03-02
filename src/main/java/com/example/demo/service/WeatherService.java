@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import java.util.HashMap;
+import com.example.demo.repository.WeatherRepository;
+import com.example.demo.entity.WeatherData;
 
 @Service
 public class WeatherService {
@@ -16,6 +18,11 @@ public class WeatherService {
 
     public String testKey() {
         return apiKey;
+    }
+    private final WeatherRepository weatherRepository;
+
+    public WeatherService(WeatherRepository weatherRepository) {
+        this.weatherRepository = weatherRepository;
     }
 
     public Map<String, Object> getWeather(String city)  {
@@ -41,6 +48,13 @@ public class WeatherService {
             String cityName = root.get("name").asText();
             double temp = root.get("main").get("temp").asDouble();
             String condition = root.get("weather").get(0).get("main").asText();
+
+            WeatherData weatherData = new WeatherData();
+            weatherData.setCity(cityName);
+            weatherData.setTemp(temp);
+            weatherData.setCondition(condition);
+
+            weatherRepository.save(weatherData);
 
             Map<String, Object> data = new HashMap<>();
             data.put("city", cityName);
