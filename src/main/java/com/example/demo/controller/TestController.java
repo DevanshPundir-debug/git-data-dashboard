@@ -8,6 +8,7 @@ import com.example.demo.service.WeatherService;
 import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 import com.example.demo.entity.WeatherData;
+import com.example.demo.dto.WeatherResponse;
 
 @RestController
 public class TestController {
@@ -47,4 +48,10 @@ public class TestController {
             return weatherService.getAllWeather();
         }
     }
+
+    @GetMapping("/weather/latest")
+    public WeatherResponse getLatest(@RequestParam String city) {
+        return weatherService.getLatestWeather(city);
+    }
+
 }

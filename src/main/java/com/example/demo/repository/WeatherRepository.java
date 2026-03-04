@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface WeatherRepository extends JpaRepository<WeatherData, Long> {
     List<WeatherData> findByCity(String city);
+    WeatherData findTopByCityOrderByTimestampDesc(String city);
 }

@@ -11,6 +11,7 @@ import com.example.demo.repository.WeatherRepository;
 import com.example.demo.entity.WeatherData;
 import java.time.LocalDateTime;
 import java.util.List;
+import com.example.demo.dto.WeatherResponse;
 
 @Service
 public class WeatherService {
@@ -34,6 +35,30 @@ public class WeatherService {
     public List<WeatherData> getWeatherByCity(String city) {
         return weatherRepository.findByCity(city);
     }
+    public WeatherResponse getLatestWeather(String city) {
+
+        WeatherData data =
+                weatherRepository.findTopByCityOrderByTimestampDesc(city);
+
+        if (data == null) {
+            return new WeatherResponse(
+                    "No Data Found",
+                    0,
+                    "No Record"
+            );
+        }
+
+        return new WeatherResponse(
+                data.getCity(),
+                data.getTemp(),
+                data.getWeatherCondition()
+        );
+    }
+
+//    public WeatherData getLatestWeather(String city) {
+//        return weatherRepository.findTopByCityOrderByTimestampDesc(city);
+//    }
+
 
     public Map<String, Object> getWeather(String city)  {
 
