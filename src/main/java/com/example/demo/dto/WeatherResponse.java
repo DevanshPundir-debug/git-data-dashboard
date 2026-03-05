@@ -1,4 +1,5 @@
 package com.example.demo.dto;
+import java.time.LocalDateTime;
 
 public class WeatherResponse {
 
@@ -6,7 +7,7 @@ public class WeatherResponse {
     private double temp;
     private String weatherCondition;
 
-    public WeatherResponse(String city, double temp, String weatherCondition) {
+    public WeatherResponse(String city, double temp, String weatherCondition , LocalDateTime timestamp) {
         this.city = city;
         this.temp = temp;
         this.weatherCondition = weatherCondition;
@@ -23,4 +24,8 @@ public class WeatherResponse {
     public String getWeatherCondition() {
         return weatherCondition;
     }
+    public LocalDateTime getTimestamp() {
+        return getTimestamp();
+    }
+
 }

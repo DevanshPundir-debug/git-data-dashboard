@@ -12,6 +12,7 @@ import com.example.demo.entity.WeatherData;
 import java.time.LocalDateTime;
 import java.util.List;
 import com.example.demo.dto.WeatherResponse;
+import java.time.LocalDateTime;
 
 @Service
 public class WeatherService {
@@ -44,14 +45,17 @@ public class WeatherService {
             return new WeatherResponse(
                     "No Data Found",
                     0,
-                    "No Record"
+                    "No Record",
+                    LocalDateTime.now()
+
             );
         }
 
         return new WeatherResponse(
                 data.getCity(),
                 data.getTemp(),
-                data.getWeatherCondition()
+                data.getWeatherCondition(),
+                data.getTimestamp()
         );
     }
 
